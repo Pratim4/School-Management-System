@@ -1,0 +1,192 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+.firstSection {
+    padding-bottom: 40px;
+}
+
+.secondSection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 5px;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+/*.secondSection:hover {
+            box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),-10px -10px 15px rgba(255, 255, 255, 0.5), inset 10px 10px 15px rgba(70, 70, 70, 0.12);
+        }*/
+
+.eng img {
+    position: relative;
+    top: 16px;
+    width: 20rem;
+    height: 90%;
+    box-shadow: 0px 1px 2px 0px rgba(0,255,255,0.7), 1px 2px 4px 0px rgba(0,255,255,0.7), 2px 4px 8px 0px rgba(0,255,255,0.7), 2px 4px 16px 0px rgba(0,255,255,0.7);
+    border-radius: 8px;
+    /*box-shadow: 0 0 10px #555;*/
+}
+
+.des {
+    padding-left: 20px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.card1 {
+    margin: 5px;
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+    .card1:hover {
+        transform: scale(1.1);
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 1px 2px 0px rgba(0,255,255,0.7), 1px 2px 4px 0px rgba(0,255,255,0.7), 2px 4px 8px 0px rgba(0,255,255,0.7), 2px 4px 16px 0px rgba(0,255,255,0.7);
+    }
+
+
+#ThirdSection h1 {
+    padding-top: 40px;
+}
+
+
+.small-image {
+    width: 100px;
+    height: 100px;
+    display: block;
+    align-content: center;
+    margin: 0 auto;
+    box-shadow: 0 0 10px #555;
+    transition: transform 0.3s ease;
+}
+
+    .small-image:hover {
+        transform: scale(1.1);
+    }
+
+.noticeCard {
+    padding-top: 20px;
+    width: 100%;
+}
+
+.carousel-item {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+    .carousel-item img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+.custom-bg-opacity {
+    background-color: rgba(128, 128, 128, 0.5)
+}
+
+.cont {
+    max-width: 3000px;
+    padding-bottom: 40px;
+    transition: 0.5s;
+}
+
+.notice-item {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.pagination-controls {
+    margin-top: 20px;
+}
+
+    .pagination-controls button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 5px;
+    }
+
+        .pagination-controls button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .pagination-controls button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+
+#page-info {
+    display: inline-block;
+    margin: 0 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.bod {
+    font-family: poppins;
+    background-image: url('../../content/images/transparent-vivid-autumn-leaves.jpg');
+}
+
+.btn {
+    width: 150px;
+    height: auto;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 18px;
+    font-weight: 700;
+    color: #FFFF33;
+    box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2), 2px 2px 0px rgba(255, 255, 255, 0.2),3px 3px 0px rgba(255, 255, 255, 0.2),4px 4px 0px rgba(255, 255, 255, 0.2);
+    margin: 8px;
+    transform: translate(-4px,4px);
+}
+
+    .btn:hover {
+        box-shadow: none;
+        transform: translate3d(4px,4px,0px);
+        background-color: rgba(255, 255, 255, 0.2);
+        transition-duration: 100ms;
+        transition-property: all;
+    }
+
+.form-control {
+    box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}
+
+.table, th, td, tr {
+    border: 2px solid black;
+}
+
+.table {
+    color: #FFFF33;
+    backdrop-filter: blur(14px);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+

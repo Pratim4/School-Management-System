@@ -1,0 +1,226 @@
+﻿@*@model IEnumerable<School_Management_System.Models.Attendence>*@
+@model PagedList.IPagedList<School_Management_System.Models.Attendence>
+@using PagedList.Mvc;
+
+
+@{
+    ViewBag.Title = "Index";
+    //var sn = 1;
+    var sn = (Model.PageNumber - 1) * Model.PageSize + 1;
+}
+<style>
+
+    .table {
+        color: #FFFF33;
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    .pagination-wrapper {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .pagination {
+        display: inline-flex;
+        list-style: none;
+        padding: 0;
+    }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+            .pagination li a {
+                color: #FFFF33;
+                background-color: #333;
+                padding: 8px 12px;
+                text-decoration: none;
+                border-radius: 4px;
+            }
+
+                .pagination li a:hover {
+                    background-color: #555;
+                }
+
+        .pagination .active a {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination .disabled a {
+            background-color: #ccc;
+            color: #666;
+        }
+   
+</style>
+<div class="container" style="color: #FFFF33">
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    @using (Html.BeginForm("Index", "Attendences"))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="d-flex flex-row gap-2">
+
+            <label for="department">Department:</label>
+
+            @Html.DropDownList("DepartmentId", (SelectList)ViewBag.Departments, "Select Department", htmlAttributes: new { @class = "form-control", @id = "deparmentDropdown" })
+
+
+            <br />
+            <label for="name" class="s1">Name:</label>
+            @Html.DropDownList("StudentId", (SelectList)ViewBag.Students, "Select Student", htmlAttributes: new { @class = "form-control", @id = "studentDropdown" })
+
+            <br />
+
+            <label for="Date">Date:</label>
+            @Html.TextBox("Date", null, new { type = "date", @class = "form-control", id = "date" })
+            <br />
+
+
+
+        </div>
+
+        <input type="submit" value="Search" class="btn " />
+
+
+    }
+
+    <br />
+    @if (Model != null && Model.Any())
+    {
+
+        <table class="table table-bordered">
+
+            <tr>
+                <th>
+                    S.N.
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Roll No
+                </th>
+                <th>
+                    Department
+                </th>
+
+                <th>
+                    Date
+                </th>
+                <th>
+                    Status
+                </th>
+
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+
+                <tr>
+                    <td>
+                        @sn
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.RollNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+                    </td>
+
+                    <td>
+                        @item.Date.Value.ToShortDateString()
+
+                    </td>
+                    <td>
+
+                        @Html.DisplayFor(modelItem => item.IsPresent)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.AttendenceId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.AttendenceId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.AttendenceId })
+                    </td>
+                </tr>
+                sn++;
+            }
+
+        </table>
+        <div class="pagination-wrapper">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, DepartmentId = ViewBag.DepartmentId, StudentId = ViewBag.StudentId, Date = ViewBag.Date }), new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.Always,
+                DisplayLinkToLastPage = PagedListDisplayMode.Always,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                DisplayLinkToIndividualPages = true,
+                LinkToFirstPageFormat = "First",
+                LinkToPreviousPageFormat = "Previous",
+                LinkToNextPageFormat = "Next",
+                LinkToLastPageFormat = "Last",
+                MaximumPageNumbersToDisplay = 5,
+                EllipsesFormat = "..."
+            })
+        </div>
+
+    }
+    else
+    {
+        <p>No results found.</p>
+    }
+
+
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary", id = "createNewButton" })
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.7.0.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.13.2/jquery-ui.js"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+
+          $(document).ready(function () {
+            $('#deparmentDropdown').change(function () {
+                var departmentId = $(this).val();
+                //alert(departmentId);
+                $.ajax({
+                    url: '@Url.Action("GetStudentsByDepartment", "Departments")',
+                    type: 'GET',
+                    data: { DepartmentId: departmentId },
+                    success: function (data) {
+                        var studentDropdown = $('#studentDropdown');
+                        studentDropdown.empty();
+                        studentDropdown.append($('<option>', {
+                            value: '',
+                            text: 'Select Student'
+
+                        }));
+                        $.each(data, function (i, student) {
+                            studentDropdown.append($('<option>',{
+                                value: student.StudentId,
+                                text: student.Name
+                            }));
+                        });
+                    }
+                });
+            });
+          });
+
+
+    </script>
+}

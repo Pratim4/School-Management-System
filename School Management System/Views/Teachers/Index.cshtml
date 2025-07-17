@@ -1,0 +1,58 @@
+﻿@model IEnumerable<School_Management_System.Models.Teacher>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .table tr td th {
+        border: 2px solid black;
+    }
+</style>
+<div class="container" style="color: #FFFF33">
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create" , null , new {@class="btn" , id="btn3"})
+</p>
+<table class="table table-bordered table-light" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TeacherDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TeacherDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TeacherId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TeacherId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TeacherId })
+        </td>
+    </tr>
+}
+
+</table>
+</div>

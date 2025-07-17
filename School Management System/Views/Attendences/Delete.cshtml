@@ -1,0 +1,74 @@
+﻿@model School_Management_System.Models.Attendence
+
+@{
+    ViewBag.Title = "Delete";
+}
+<style>
+    .btn {
+        width: 150px;
+        height: auto;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFF33;
+        box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2), 2px 2px 0px rgba(255, 255, 255, 0.2),3px 3px 0px rgba(255, 255, 255, 0.2),4px 4px 0px rgba(255, 255, 255, 0.2);
+        margin: 8px;
+        transform: translate(-4px,4px);
+    }
+
+        .btn:hover {
+            box-shadow: none;
+            transform: translate3d(4px,4px,0px);
+            background-color: rgba(255, 255, 255, 0.2);
+            transition-duration: 100ms;
+            transition-property: all;
+        }
+</style>
+<main style="color: #FFFF33" class="container">
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Attendence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsPresent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsPresent)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn " /> 
+            @Html.ActionLink("Back to List", "Index" ,null, new { @class = "btn btn-primary", id = "reloadButton" })
+        </div>
+    }
+</div>
+</main>

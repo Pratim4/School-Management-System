@@ -1,0 +1,132 @@
+﻿@model School_Management_System.Models.Attendence
+
+@{
+    ViewBag.Title = "Edit";
+}
+<style>
+    .form-control {
+        box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+    
+    .btn {
+        width: 150px;
+        height: auto;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFF33;
+        box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2), 2px 2px 0px rgba(255, 255, 255, 0.2),3px 3px 0px rgba(255, 255, 255, 0.2),4px 4px 0px rgba(255, 255, 255, 0.2);
+        margin: 8px;
+        transform: translate(-4px,4px);
+    }
+
+        .btn:hover {
+            box-shadow: none;
+            transform: translate3d(4px,4px,0px);
+            background-color: rgba(255, 255, 255, 0.2);
+            transition-duration: 100ms;
+            transition-property: all;
+        }
+        </style>
+<main class="container " style="color: #FFFF33" >
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Attendence</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.AttendenceId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DepartmentId", (SelectList)ViewBag.Departments, "Select Department", htmlAttributes: new { @class = "form-control", @id = "deparmentDropdown" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsPresent, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsPresent)
+                    @Html.ValidationMessageFor(model => model.IsPresent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.DropDownList("StudentId", null, htmlAttributes: new { @class = "form-control", @id = "studentDropdown" })
+                @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-primary", id = "reloadButton" })
+</div>
+</main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#deparmentDropdown').change(function () {
+                var departmentId = $(this).val();
+                //alert(departmentId);
+                $.ajax({
+                    url: '@Url.Action("GetStudentsByDepartment", "Departments")',
+                    type: 'GET',
+                    data: { DepartmentId: departmentId },
+                    success: function (data) {
+                        var studentDropdown = $('#studentDropdown');
+                        studentDropdown.empty();
+                        studentDropdown.append($('<option>', {
+                            value: '',
+                            text: 'Select Student'
+
+                        }));
+                        $.each(data, function (i, student) {
+                            studentDropdown.append($('<option>', {
+                                value: student.StudentId,
+                                text: student.Name
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

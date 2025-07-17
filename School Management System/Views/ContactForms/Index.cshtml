@@ -1,0 +1,93 @@
+﻿@model IEnumerable<School_Management_System.Models.ContactForm>
+
+@{
+    ViewBag.Title = "Index";
+    //int sn = 1;
+
+}
+<style>
+    
+</style>
+<div class="container text-light">
+    <h2 class="text-center">Messages</h2>
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create", null, new {@class="btn", @id="abc"})
+        </p>*@
+    @*<table class="table table-bordered">
+            <tr>
+                <th>S.N</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>Date</th>
+                <th>
+
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Message)
+                </th>
+
+                <th>Action</th>
+            </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @sn
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td> @DateTime.Now.ToShortDateString()</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.ContactFormId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.ContactFormId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.ContactFormId })
+                </td>
+            </tr>
+            sn++;
+        }
+
+        </table>*@
+    <table class="table " style="background-color: rgba(0, 76, 109, 0.8);">
+        <tr>
+            @*<th>S.N</th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Message)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @sn
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name) sent you a message
+                </td>
+                <td>@Html.ActionLink("Read", "Details", new { id = item.ContactFormId })</td>
+            </tr>
+            //sn++;
+        }
+
+    </table>
+
+</div>

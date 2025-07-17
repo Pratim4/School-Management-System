@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sagarmatha Engineering College</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/Style/StyleSheet1.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        .bod {
+            font-family: poppins;
+            background-image: url('../../content/images/transparent-vivid-autumn-leaves.jpg');
+        }
+
+        .cont1 {
+            padding-top: 56px;
+        }
+
+        .btn {
+            width: 150px;
+            height: auto;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFF33;
+            box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2), 2px 2px 0px rgba(255, 255, 255, 0.2),3px 3px 0px rgba(255, 255, 255, 0.2),4px 4px 0px rgba(255, 255, 255, 0.2);
+            margin: 8px;
+            transform: translate(-4px,4px);
+        }
+
+            .btn:hover {
+                box-shadow: none;
+                transform: translate3d(4px,4px,0px);
+                background-color: rgba(255, 255, 255, 0.2);
+                transition-duration: 100ms;
+                transition-property: all;
+            }
+
+        .form-control {
+            box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+            backdrop-filter: blur(14px);
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .table, th, td, tr {
+            border: 2px solid black;
+        }
+
+        .table {
+            color: #FFFF33;
+            backdrop-filter: blur(14px);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .grid-container {
+            padding-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            padding: 10px;
+            background-color: navy;
+        }
+
+        .grid-item {
+            background-color: transparent;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 20px;
+        }
+
+        .bi {
+            padding-right: 5px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .bgnav {
+            background-color: #004c6d;
+        }
+
+        .uli li {
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .message-counter {
+            display: inline-block;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 0.2em 0.2em;
+            font-size: 0.75em;
+            position: relative;
+            top: 6px;
+            left: -8px;
+            height: 22px;
+        }
+        .golden-bell {
+            font-size:1.2rem;
+            color: gold;
+            transition: transform 0.1s;
+        }
+
+        .golden-bell:hover {
+            animation: shake 0.2s;
+            transform:scale(1.1);
+            animation-iteration-count: infinite;
+        }
+
+        @@keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(5deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-5deg); }
+            100% { transform: rotate(0deg); }
+        }
+    </style>
+
+
+
+
+
+
+</head>
+<body class="bod">
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bgnav fixed-top">
+        <div class="container">
+            <img style=" filter: drop-shadow(0 0 5px #00ffff) drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 15px #00ffff)" src="~/Content/images/sclogo.png" width="30" height="30" />
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between ">
+                <ul class="navbar-nav flex-grow-1 uli">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Create", "ContactForms", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li> @Html.ActionLink("Notice", "index", "Home", new { area = "" }, new { @class = "nav-link", href = Url.Action("Index", "Home") + "#ThirdSection" })</li>
+
+
+
+
+                    @if (User.IsInRole("SuperAdmin"))
+                    {
+                        <li>@Html.ActionLink("Dashboard", "Index", "SMS", new { area = "" }, new { @class = "nav-link" })</li>
+                        @*<li class="bg-info" style="border-radius:50%;">
+                            <a href="@Url.Action("Index", "ContactForms", new { area = "" })" class="nav-link" id="messageNavLink">
+                                <i class="fas fa-bell golden-bell"></i>
+                            </a>
+                        </li>
+
+
+                        <l id="messageCount" class="message-counter"></l>*@
+
+                    }
+
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+
+            </div>
+        </div>
+    </nav>
+    <div class="cont1">
+        @RenderBody()
+        <hr />
+        <section>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <h4>Contact Us</h4>
+                    <div class="d-flex flex-column gap-2">
+
+                        <div class="d-flex flex-row ">
+                            <div><i class="bi bi-geo-alt-fill"></i></div>
+                            <div style="font-size:15px;"><b>Address:</b> Sanepa, Lalitpur, Nepal</div>
+
+                        </div>
+                        <div class="d-flex flex-row ">
+                            <div><i class="bi bi-telephone-fill"></i></div>
+                            <div style="font-size:15px;"><b>Phone:</b> +977-1-5911274 , +977-1-5911275 , +977-1-5427274</div>
+
+                        </div>
+                        <div class="d-flex flex-row ">
+                            <div><i class="bi bi-envelope-fill"></i></div>
+                            <div style="font-size:15px;"><b>Email:</b> info@sagarmatha.edu.np</div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <h4>Quick Links</h4>
+                    <div class="d-flex flex-column ">
+                        <ul style="list-style:none;font-size:15px">
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Contact", "Create", "ContactForms", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li> @Html.ActionLink("Notice", "index", "Home", new { area = "" }, new { @class = "nav-link", href = Url.Action("Index", "Home") + "#ThirdSection" })</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <h4>Programs</h4>
+
+                    <ul style="list-style:none;font-size:15px" class="d-flex flex-column gap-2 ">
+                        <li class="text-lg-start">Bachelor of Civil Engineering</li>
+                        <li class="text-lg-start">Bachelor of Computer Enineering</li>
+                        <li class="text-lg-start">Bachelor of Electronics, Communication and Information Enineering</li>
+                        <li class="text-lg-start">Bachelor of Electrical Engineering</li>
+                    </ul>
+
+
+                </div>
+                <div class="grid-item">
+                    <div>
+                        <h4>Join Us</h4>
+                        <div class="d-flex flex-column gap-2 align-items-center">
+
+                            <div class="d-flex flex-row ">
+                                <div><i class="bi bi-facebook"></i></div>
+                                <div style="font-size:15px;"><b><a href="https://www.facebook.com/college.sagarmatha">Facebook</a></b></div>
+
+                            </div>
+                            <div class="d-flex flex-row ">
+                                <div><i class="bi bi-twitter"></i></div>
+                                <div style="font-size:15px;"><b><a href="https://x.com/sagarmathaec">X&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></div>
+
+                            </div>
+                            <div class="d-flex flex-row ">
+                                <div><i class="bi bi-instagram"></i></div>
+                                <div style="font-size:15px;"><b><a href="https://www.instagram.com/sagarmathaec/">Instagram</a></b></div>
+
+                            </div><div class="d-flex flex-row ">
+                                <div><i class="bi bi-linkedin"></i></div>
+                                <div style="font-size:15px;"><b><a href="https://www.linkedin.com/in/sagarmathaec/">LinkedIn</a></b></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <footer class="bg-dark d-flex justify-content-center align-items-center " style="height:30px;">
+            <p class="text-center" style="font-size:15px; color:white; padding-top: 15px;">&copy; @DateTime.Now.Year - CopyRight All Right Reserved Sagarmatha Engineering College</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+            $(document).ready(function() {
+                function updateMessageCount() {
+                    $.getJSON('@Url.Action("GetNewMessageCount", "ContactForms")', function(data) {
+                        $('#messageCount').text(data.count);
+                    });
+                }
+
+                // Update the count initially and then every 10 seconds
+                updateMessageCount();
+                setInterval(updateMessageCount, 10000); // 10000 ms = 10 seconds
+            });
+
+  
+    $(document).ready(function () {
+        $('#messageNavLink').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '@Url.Action("MarkAllMessagesAsRead", "ContactForms")',
+                type: 'POST',
+                success: function () {
+                    // Redirect to the ContactForms Index page after resetting
+                    window.location.href = '@Url.Action("Index", "ContactForms")';
+                },
+                error: function () {
+                    alert('Failed to mark messages as read.');
+                }
+            });
+        });
+    });
+    </script>
+
+    
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

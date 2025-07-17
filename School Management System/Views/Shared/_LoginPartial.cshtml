@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navbar-nav navbar-right">
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+    @*<li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" })
+        </li>*@
+    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+
+    @if (User.IsInRole("SuperAdmin"))
+    {
+       
+        <li class="bg-info" style="border-radius:50%;">
+                <a href="@Url.Action("Index", "ContactForms", new { area = "" })" class="nav-link" id="messageNavLink">
+                    <i class="fas fa-bell golden-bell"></i>
+                </a>
+            </li>
+
+
+            <l id="messageCount" class="message-counter"></l>
+
+    }
+</ul>
+    }
+}
+else
+{
+<ul class="navbar-nav navbar-right">
+
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+    @if (User.IsInRole("SuperAdmin"))
+    {
+
+        <li class="bg-info" style="border-radius:50%; padding-left:10px;">
+            <a href="@Url.Action("Index", "ContactForms", new { area = "" })" class="nav-link" id="messageNavLink">
+                <i class="fas fa-bell golden-bell"></i>
+            </a>
+        </li>
+
+
+        <l id="messageCount" class="message-counter"></l>
+
+    }
+</ul>
+}

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<School_Management_System.Models.Notice>
+
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    .table tr th td{
+        border:2px,solid,red;
+    }
+</style>
+<div class="container" style="color:#FFFF33">
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null , new {@class="btn", id ="btn4"})
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+          Image
+        </th>
+       
+        <th>Action</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        
+        <td>
+            @if (!string.IsNullOrEmpty(item.ImagePath))
+            {
+                <img src="@Url.Content(item.ImagePath)" alt="Image" style="max-width: 100px; max-height: 100px;" />
+            }
+            else
+            {
+                <span>No Image</span>
+            }
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.NoticeId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.NoticeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.NoticeId })
+            
+        </td>
+    </tr>
+}
+
+</table>
+</div>

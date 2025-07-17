@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "success";
+}
+
+<div  class="container " style="color:#FFFF33">
+
+<h2>Success</h2>
+
+@if (Model != null)
+{
+    <p>Thank you, @Model.Name. Your message has been sent successfully!</p>
+    <p>Email: @Model.Email</p>
+    <p>Subject: @Model.Subject</p>
+    <p>Message: @Model.Message</p>
+}
+else
+{
+    <p>There was an error processing your request.</p>
+}
+</div>
+

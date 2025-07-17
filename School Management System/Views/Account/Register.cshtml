@@ -1,0 +1,110 @@
+﻿@model School_Management_System.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<style>
+    .btnArr {
+        display: flex;
+    }
+
+    .hidBtn {
+        display: none;
+    }
+
+    .shoBtn {
+        display: block;
+        margin: auto;
+    }
+
+    .btn {
+        width: 100px;
+        border: none;
+        outline: none;
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        font-size: 18px;
+        font-weight: 700;
+        color: #FFFF33;
+        box-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2), 2px 2px 0px rgba(255, 255, 255, 0.2),3px 3px 0px rgba(255, 255, 255, 0.2),4px 4px 0px rgba(255, 255, 255, 0.2);
+        margin: 8px;
+        transform: translate(-4px,4px);
+       
+    }
+
+        .btn:hover {
+            box-shadow: none;
+            transform: translate3d(4px,4px,0px);
+            background-color: rgba(255, 255, 255, 0.2);
+            transition-duration: 100ms;
+            transition-property: all;
+            
+        }
+    .form-control {
+        box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+    .row{
+        padding-bottom:8px;
+    }
+</style>
+
+<main aria-labelledby="title" style="color: #FFFF33" class="container ">
+    <h2 id="title">@ViewBag.Title.</h2>
+    
+    <div class=" row d-flex flex-row">
+
+    <div class="col-md-8">
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="row">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            </div>
+        </div>
+        if(User.IsInRole("SuperAdmin"))
+        {
+            <div class="row">
+                <label>Role</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.RoleName, new SelectList(Utility.GetRoleList(), "Text", "Text"), "Select", new { @class = "form control" })
+                </div>
+            </div>
+        }
+            <div class="row">
+                <div class="offset-md-2 col-md-10 btnArr">
+                    <input type="submit" value="Register" class="btn btn-outline-dark" />
+
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row" style="height:320px; width:400px ">
+        <img src="~/Content/images/register.png" />
+
+    </div>
+    </div>
+    </main>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

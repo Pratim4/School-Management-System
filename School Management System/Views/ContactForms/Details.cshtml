@@ -1,0 +1,51 @@
+﻿@model School_Management_System.Models.ContactForm
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="container">
+    <h2 style="color:#FFFF33">Details</h2>
+
+    <div class="card mt-4 p-3">
+        <h4>Message</h4>
+        <hr />
+
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <div class="bg-light p-2"><b>Name:</b> @Html.DisplayFor(model => model.Name)</div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-light p-2"><b>Email:</b> @Html.DisplayFor(model => model.Email)</div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-light p-2"><b>Subject:</b> @Html.DisplayFor(model => model.Subject)</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-light p-2"><b>Message:</b> @Html.DisplayFor(model => model.Message)</div>
+            </div>
+        </div>
+        <hr />
+        <h4>Reply</h4>
+        <form method="post" action="@Url.Action("SendReply", "ContactForms")">
+            @Html.HiddenFor(model => model.Email) 
+
+            <div class="form-group">
+                <label for="replySubject">Subject:</label>
+                <input type="text" id="replySubject" name="replySubject" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="replyMessage">Message:</label>
+                <textarea id="replyMessage" name="replyMessage" rows="5" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="bg-dark btn btn-secondary">Send Reply</button>
+        </form>
+    </div>
+</div>
+

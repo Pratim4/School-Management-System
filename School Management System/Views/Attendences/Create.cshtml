@@ -1,0 +1,180 @@
+﻿@model School_Management_System.Models.Attendence
+
+@{
+    ViewBag.Title = "Create";
+    var sn = 1;
+}
+<style>
+    .form-control {
+        box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
+    .table {
+        color: #FFFF33;
+        backdrop-filter: blur(14px);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    
+
+        .bttl{
+            width:170px;
+        }
+</style>
+
+<div class="container" style="color: #FFFF33">
+
+<h2>Create</h2>
+
+
+
+
+@using (Html.BeginForm("Search", "Attendences", FormMethod.Post))
+{
+    <div class="form-horizontal" style="padding-bottom:15px">
+        <h4>Attendence</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.DepartmentId, "Department", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.DropDownList("DepartmentId", (SelectList)ViewBag.Departments, "Select Department", htmlAttributes: new { @class = "form-control", @id = "deparmentDropdown" })*@
+                @Html.DropDownListFor(x=>x.DepartmentId,Utility.GetDepartmentList(),"Select",new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                
+            </div>
+
+        </div>
+        
+        
+            <button type="submit" class="btn" >Search</button>
+        
+
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Attendences", FormMethod.Post))
+{@Html.AntiForgeryToken()
+<table class="table table-bordered " >
+    <tr>
+        <th>S.N</th>
+        <th>Name</th>
+        <th>RollNo</th>
+        <th>Department</th>
+        <th>Date</th>
+        <th>Attendance</th>
+    </tr>
+    @for (var i = 0; i < Model.StudentList.Count(); i++)
+    {
+        var item = Model.StudentList.ElementAt(i);
+
+        @Html.HiddenFor(model => model.StudentList[i].StudentId)
+        @Html.HiddenFor(model => model.StudentList[i].DepartmentId)
+        <tr>
+            <td>
+                @sn
+            </td>
+            <td>
+
+                @Html.DisplayFor(model => model.StudentList[i].Name)
+            </td>
+            <td>@Html.DisplayFor(model => model.StudentList[i].RollNo)</td>
+            <td>@Html.DisplayFor(model => model.StudentList[i].Department.DepartmentName)</td>
+            <td> @DateTime.Now.ToShortDateString()</td>
+
+            <td>
+                @Html.CheckBoxFor(model => model.StudentList[i].IsPresent)
+            </td>
+
+        </tr>
+        sn++;
+    }
+</table>
+
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</div>
+
+}
+
+<div class="d-flex flex-row gap-3 ">
+    @Html.ActionLink("Reload", "Create", null, new { @class = "btn btn-primary", id = "reloadButton" })
+    @Html.ActionLink("Back to the List", "Index", null, new { @class = "btn btn-primary bttl", id = "reloadButton" })
+
+</div>
+</div>
+
+
+@section Scripts {
+                    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.7.0.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.13.2/jquery-ui.js"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.13.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+
+    
+    @*<script type="text/javascript">*@
+
+    @*$(document).ready(function () {
+                $('#deparmentDropdown').change(function () {
+                    var departmentId = $(this).val();
+
+                    $.ajax({
+                        url: '@Url.Action("GetStudentsByDepartment", "Departments")',
+                        type: 'GET',
+                        data: { DepartmentId: departmentId },
+                        success: function (data) {
+                            var studentDropdown = $('#studentDropdown');
+                            studentDropdown.empty();
+                            studentDropdown.append($('<option>', {
+                                value: '',
+                                text: 'Select Student'
+
+                            }));
+                            $.each(data, function (i, student) {
+                                studentDropdown.append($('<option>', {
+                                    value: student.StudentId,
+                                    text: student.Name
+                                }));
+                            });
+                        }
+                    });
+                });
+            });
+        </script>*@
+
+}
+@*<div>
+        <label for="Date">Date:</label>
+        @Html.TextBox("Date", null, "{0:yyyy-MM-dd}", new { type = "date" })
+
+    </div>*@
+
+
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.IsPresent, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.IsPresent)
+                @Html.ValidationMessageFor(model => model.IsPresent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>*@
+
+
+@*<div class="form-group">
+        @Html.LabelFor(model => model.StudentId, "StudentId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("StudentId", new SelectList(Enumerable.Empty<SelectListItem>()), "Select Student", htmlAttributes: new { @class = "form-control", @id = "studentDropdown" })
+            @Html.ValidationMessageFor(model => model.StudentId, "", new { @class = "text-danger" })
+        </div>
+    </div>*@

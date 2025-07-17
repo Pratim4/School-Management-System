@@ -1,0 +1,58 @@
+﻿@model School_Management_System.Models.Notice
+
+@{
+    ViewBag.Title = "Create";
+}
+<style>
+    .notc{
+        justify-content:space-around;
+       gap:20%;
+    }
+    .nimg img{
+        height:400px;
+        width:400px;
+    }
+</style>
+<div class="container d-flex flex-row notc">
+
+<div  style="color: #FFFF33" >
+    <h1 style="text-align:center;">Create Notice</h1>
+    @using (Html.BeginForm("Create", "Notices", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="text-danger">@Html.ValidationSummary(true, "", new { @class = "text-danger" })</div>
+
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="Subject" class="form-control" required />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="Description" rows="4" class="form-control" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file">Upload File:</label>
+                <input type="file" id="file" name="Image" class="form-control" />
+            </div>
+
+            <div class="submit-container">
+                <input type="submit" value="Publish" class="btn btn-default" />
+            </div>
+        </div>
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index", null, new {@class="btn", id="dr"})
+    </div>
+
+</div>
+<div class="nimg">
+    <img src="~/Content/images/noticeboard.png" />
+
+</div>
+</div>
+
+
